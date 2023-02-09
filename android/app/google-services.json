@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "139290844398",
+    "project_id": "mypaws-b29a1",
+    "storage_bucket": "mypaws-b29a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139290844398:android:b0a09c4598d3b27fd627ff",
+        "android_client_info": {
+          "package_name": "com.example.mypaws"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139290844398-nijde7t009psba1p40umvf99gdn7d37a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFRGlV57hLoGWobTuJPf8q0ocwEx1hJ4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139290844398-nijde7t009psba1p40umvf99gdn7d37a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
