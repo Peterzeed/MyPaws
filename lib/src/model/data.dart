@@ -1,4 +1,7 @@
+import 'package:mypaws/src/model/match_model.dart';
+
 import 'pet_match.dart';
+import 'package:get/get.dart';
 
 class AppData {
   static List<MatchPet> matchList = [
@@ -48,9 +51,5 @@ class AppData {
         ),
   ];
 
-  static Future<List<MatchPet>> simulateFetchingMatch(){
-    return Future.delayed(const Duration(seconds: 3), (){
-      return matchList;
-    });
-  }
+  
 }

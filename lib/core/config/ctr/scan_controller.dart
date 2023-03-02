@@ -4,15 +4,21 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mypaws/core/config/shared_pref.dart';
+import 'package:mypaws/core/lifecycle/lifecycle_listener.dart';
+import 'package:mypaws/core/lifecycle/lifecycle_listener_event.dart';
 import 'package:tflite/tflite.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
-class ScanController extends  GetxController {
+class ScanController extends  GetxController with LifecycleListenerEvent{
   File? image;
 
   bool loading = true;
 
   final picker = ImagePicker();
+
+  late LifecycleListener _lifecycleListener;
 
   Future getImageFromGallery() async {
     try {
@@ -48,7 +54,7 @@ class ScanController extends  GetxController {
     // setState(() {
     outputbreed = output!;
     loading = false;
-
+    print("Breed : $outputbreed");
     // });
   }
 
@@ -80,15 +86,21 @@ class ScanController extends  GetxController {
 
   @override
   void onInit() {
-    // _lifecycleListener = LifecycleListener(providerInstance: this);
+    _lifecycleListener = LifecycleListener(providerInstance: this);
     loadModel();
     super.onInit();
   }
 
   @override
   void onClose() {
-    // _lifecycleListener.dispose();
+    _lifecycleListener.dispose();
     Tflite.close();
     super.onClose();
   }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
 }

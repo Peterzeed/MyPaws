@@ -6,6 +6,7 @@ class IconButtonn extends StatelessWidget {
 
   final IconData icon;
   final Color color;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +16,20 @@ class IconButtonn extends StatelessWidget {
       color: color,
       child: InkWell(
         onTap: (() {
-          print("hey");
+
         }),
         child: Row(mainAxisSize: MainAxisSize.min, children:  [
-          // const SizedBox(
-          //   width: 5,
-          // ),
+          const SizedBox(
+            width: 10,
+          ),
           Icon(
             icon,
-            size: 45,
+            size: 30,
             color: Colors.white,
           ),
-          // const SizedBox(
-          //   width: 5,
-          // )
+          const SizedBox(
+            width: 10,
+          )
         ]),
       ),
     );

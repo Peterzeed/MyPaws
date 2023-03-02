@@ -21,25 +21,27 @@ class MatchData {
 class Result {
   Result({
     this.founder,
-    this.image,
+    required this.image,
     this.specific,
-    this.date,
+    required this.date,
     this.lat,
     this.lng,
     this.description,
     this.type,
-    this.breed
+    required this.breed,
+    required this.isBookMarkAdd,
   });
 
   int? founder;
-  String? image;
+  String image;
   String? specific;
-  String? date;
+  String date;
   String? lat;
   String? lng;
   String? description;
   String? type;
-  String? breed;
+  String breed;
+  bool isBookMarkAdd;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         founder: json["founder"],
@@ -51,6 +53,7 @@ class Result {
         description: json["description"],
         type: json["type"],
         breed: json["breed"],
+        isBookMarkAdd: json["isBookMarkAdd"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -62,6 +65,7 @@ class Result {
         "lng":lng,
         "description": description,
         "type": type,
-        "breed" : breed
+        "breed" : breed,
+        "isBookMarkAdd" : isBookMarkAdd
       };
 }

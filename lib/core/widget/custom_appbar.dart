@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mypaws/core/DI/auth_controller.dart';
+import 'package:mypaws/core/config/routes.dart';
+import 'package:mypaws/core/config/shared_pref.dart';
 import 'package:mypaws/core/widget/extensions.dart';
 import 'package:get/get.dart';
 
@@ -8,10 +10,9 @@ import '../theme/theme.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({Key? key, required this.title}) : super(key: key);
+  
 
   final String title;
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +23,22 @@ class CustomAppBar extends StatelessWidget {
         children: [
           _icon(
             context,
-            Icons.logout_outlined,
+            Icons.sort_sharp,
             color: Colors.black54,
-            onPressed: () {
-              AuthController.instance.logOut();
-              
-                          },
-          ),
-          _icon(
-            context,
-            Icons.pin_drop,
-            color: LightColor.orange,
-            onPressed: () {
-              // Get.toNamed(Routes.nearbyStorePage);
+            onPressed: () async {
+              // AuthController.instance.logOut();
+              // await SharedPreferenceKey.clearAll();
+              Get.toNamed(Routes.settingPage);
             },
           ),
+          // _icon(
+          //   context,
+          //   Icons.pin_drop,
+          //   color: LightColor.orange,
+          //   onPressed: () {
+          //     // Get.toNamed(Routes.nearbyStorePage);
+          //   },
+          // ),
         ],
       ),
     );

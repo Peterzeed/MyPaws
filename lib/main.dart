@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mypaws/core/DI/auth_controller.dart';
+import 'package:mypaws/core/DI/di.dart';
 import 'package:mypaws/core/config/routes.dart';
 import 'package:mypaws/core/theme/theme.dart';
 import 'package:mypaws/core/widget/bottom_nav_bar.dart';
+import 'package:mypaws/firebase_options.dart';
 import 'package:mypaws/src/pages/chat/chat_page.dart';
 import 'package:mypaws/src/pages/feed/new_feed_page.dart';
 import 'package:mypaws/src/pages/search/search_page.dart';
@@ -13,13 +15,15 @@ import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main()async {
+  initGetX();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp().then(
-    (value) => Get.put(
-      AuthController(),
-    ),
-  );
-  runApp(const MyApp());
+  // await Firebase.initializeApp().then(
+  //   (value) => Get.put(
+  //     AuthController(),
+  //   ),
+  // );
+ await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((value) => Get.put(AuthController()));
+runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +41,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       getPages: Routes.getPageRoute(),
-      initialRoute: Routes.rootPage,
+      initialRoute: Routes.mainPage,
     );
   }
 }

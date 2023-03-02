@@ -7,9 +7,10 @@ import 'package:mypaws/core/theme/light_color.dart';
 import 'package:mypaws/core/theme/theme.dart';
 import 'package:mypaws/core/widget/custom_appbar.dart';
 import 'package:mypaws/core/widget/title.dart';
-import 'package:mypaws/src/pages/search/finding%20pet/finding_pet.dart';
-import 'package:mypaws/src/pages/search/found%20pet/found_pet.dart';
-import 'package:mypaws/src/pages/search/scan%20breed/scan_breed.dart';
+import 'package:mypaws/core/widget/title_text.dart';
+import 'package:mypaws/src/pages/search/findingpet/finding_pet.dart';
+import 'package:mypaws/src/pages/search/foundpet/found_pet.dart';
+import 'package:mypaws/src/pages/search/scanbreed/scan_breed.dart';
 import 'package:mypaws/src/pages/search/search_page_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,9 +23,7 @@ class SearchPage extends GetView<SearchPageController> {
   Routes? searchRoute;
   String? route;
 
-  
-
-  SearchPage({Key? key ,required this.email}) : super(key: key);
+  SearchPage({Key? key, required this.email}) : super(key: key);
   final _searchPageController = Get.put(SearchPageController());
   @override
   Widget build(BuildContext context) {
@@ -34,29 +33,100 @@ class SearchPage extends GetView<SearchPageController> {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Header(headLine1: 'Welcome', headLine2: email.toString()),
+          Header(headLine1: 'Mypaws', headLine2: "search"),
           // _title(),
           const SizedBox(
             height: 50,
           ),
-          _imageButton(context , imageBtn = 'assets/paw1.jpg', btnName = 'Finding Pet', route = 'findpet'),
+          _imageButton(context, imageBtn = 'assets/paw1.jpg',
+              btnName = 'Finding Pet', route = 'findpet'),
           const SizedBox(
             height: 30,
           ),
-          _imageButton(context , imageBtn = 'assets/paw2.jpg', btnName = 'Found Pet' , route = 'foundpet'),
+          _imageButton(context, imageBtn = 'assets/paw2.jpg',
+              btnName = 'Found Pet', route = 'foundpet'),
           const SizedBox(
             height: 30,
           ),
-          _imageButton(context , imageBtn = 'assets/paw4.jpg', btnName = 'Breed Scan' , route = 'scanbreed'),
+          _imageButton(context, imageBtn = 'assets/paw4.jpg',
+              btnName = 'Breed Scan', route = 'scanbreed'),
           const SizedBox(
             height: 70,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(200, 0, 0, 0),
-            child: _iconButton(),
+            child: _iconButton(context),
           ),
         ],
       )),
+    );
+  }
+
+  Future _showOptions(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              onTap: () {},
+              leading: const Icon(Icons.pin_drop),
+              title: const TitleText(
+                text: "Search distance",
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              ),
+            ),
+            Obx(
+              () => Slider(
+                value: _searchPageController.range.value,
+                min: 0, //initialized it to a double
+                max: 50, //initialized it to a double
+                divisions: 10,
+                label: _searchPageController.range.round().toString(),
+                onChanged: (double value) {
+                  _searchPageController.setRange(value);
+                },
+              ),
+            ),
+            // ListTile(
+            //   onTap: () {},
+            //   leading: const Icon(Icons.photo_camera_outlined),
+            //   title: const TitleText(
+            //     text: "Camera",
+            //     fontWeight: FontWeight.w400,
+            //     color: Colors.black,
+            //   ),
+            // ),
+            SizedBox(
+              height: 50,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Container(
+                width: 150,
+                height: 30,
+                color: Colors.black,
+                child: InkWell(
+                  onTap: () {
+                    
+                  },
+                  child: Center(
+                    child: Text("Save",style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -86,11 +156,7 @@ class SearchPage extends GetView<SearchPageController> {
   }
 
   Widget _imageButton(
-    BuildContext context,
-    String imgBtn,
-    String btnName,
-    String route
-  ) {
+      BuildContext context, String imgBtn, String btnName, String route) {
     return Center(
       child: Material(
         borderRadius: BorderRadius.circular(10),
@@ -108,15 +174,15 @@ class SearchPage extends GetView<SearchPageController> {
                 Get.to(() => FindingPet(), arguments: route);
                 break;
               case 'foundpet':
-                Get.to(() => FoundPetPage());  
+                Get.to(() => FoundPetPage());
                 break;
               case 'scanbreed':
-                Get.to(() => ScanBreedPage());  
-                break;  
-              default: Get.to(() => SearchPage(email: '')); 
-              break; 
+                Get.to(() => ScanBreedPage());
+                break;
+              default:
+                Get.to(() => SearchPage(email: ''));
+                break;
             }
-
 
             // Get.to(() => FindingPet(), arguments: route);
           }),
@@ -143,16 +209,22 @@ class SearchPage extends GetView<SearchPageController> {
     );
   }
 
-  Widget _iconButton() {
+  Widget _iconButton(BuildContext context) {
     return Center(
       child: Material(
         borderRadius: BorderRadius.circular(5),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Colors.white,
         child: InkWell(
-          onTap: (() {}),
+          onTap: (() {
+            _showOptions(context);
+          }),
           child: Row(mainAxisSize: MainAxisSize.min, children: const [
-            Icon(Icons.settings,size: 20,color: Colors.black,),
+            Icon(
+              Icons.settings,
+              size: 20,
+              color: Colors.black,
+            ),
             SizedBox(
               width: 10,
             ),

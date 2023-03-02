@@ -25,7 +25,7 @@ class Header extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomAppBar(title: 'MainPage'),
+          CustomAppBar(title: 'MainPage'),
           _title(),
         ],
       ),
