@@ -5,7 +5,7 @@ import 'package:mypaws/core/lifecycle/lifecycle_listener.dart';
 import 'package:mypaws/core/lifecycle/lifecycle_listener_event.dart';
 import 'package:mypaws/src/model/lost_pet_model.dart';
 
-class LostPetController extends GetxController with LifecycleListenerEvent{
+class LostPetController extends GetxController with LifecycleListenerEvent {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   late LifecycleListener _lifecycleListener;
@@ -21,8 +21,10 @@ class LostPetController extends GetxController with LifecycleListenerEvent{
     super.onInit();
   }
 
-  Stream<List<LostPetModel>> readPetLost() =>
-      collectionReference.snapshots().map((query) =>
+  Stream<List<LostPetModel>> readPetLost() => collectionReference
+      .where('ismypaws', isEqualTo: "finding")
+      .snapshots()
+      .map((query) =>
           query.docs.map((item) => LostPetModel.fromMap(item)).toList());
 
   RxList<LostPetModel> mylostpet = RxList<LostPetModel>([]);

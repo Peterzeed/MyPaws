@@ -6,6 +6,7 @@ import 'package:mypaws/core/config/routes.dart';
 import 'package:mypaws/core/theme/theme.dart';
 import 'package:mypaws/core/widget/bottom_nav_bar.dart';
 import 'package:mypaws/firebase_options.dart';
+import 'package:mypaws/providers/chat_provider.dart';
 import 'package:mypaws/src/pages/chat/chat_page.dart';
 import 'package:mypaws/src/pages/feed/new_feed_page.dart';
 import 'package:mypaws/src/pages/search/search_page.dart';
@@ -13,8 +14,12 @@ import 'core/theme/light_color.dart';
 import 'core/widget/custom_appbar.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main()async {
+void main() async {
   initGetX();
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp().then(
@@ -22,26 +27,44 @@ void main()async {
   //     AuthController(),
   //   ),
   // );
- await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((value) => Get.put(AuthController()));
-runApp(const MyApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+      .then((value) => Get.put(AuthController()));
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  runApp(MyApp(prefs: prefs));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final SharedPreferences prefs;
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  MyApp({required this.prefs});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: AppTheme.lightTheme.copyWith(
-        textTheme: GoogleFonts.mulishTextTheme(
-          Theme.of(context).textTheme,
+    return MultiProvider(
+      providers: [
+        Provider<ChatProvider>(
+          create: (_) => ChatProvider(
+            prefs: this.prefs,
+            firebaseFirestore: this.firebaseFirestore,
+            firebaseStorage: this.firebaseStorage,
+          ),
+          builder: (context, child) {
+            return GetMaterialApp(
+              title: 'Flutter Demo',
+              theme: AppTheme.lightTheme.copyWith(
+                textTheme: GoogleFonts.mulishTextTheme(
+                  Theme.of(context).textTheme,
+                ),
+              ),
+              // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+              getPages: Routes.getPageRoute(),
+              initialRoute: Routes.mainPage,
+            );
+          },
         ),
-      ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      getPages: Routes.getPageRoute(),
-      initialRoute: Routes.mainPage,
+      ],
     );
   }
 }

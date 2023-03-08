@@ -16,9 +16,9 @@ class ChatPageController extends GetxController  with GetSingleTickerProviderSta
 
   final List<Tab> myTabs = <Tab>[
     const Tab(
-      text: 'Lost Pet',
+      text: 'Find Pet Match',
     ),
-    const Tab(text: 'Found Pet'),
+    const Tab(text: 'Found Pet Match'),
   ];
 
   @override

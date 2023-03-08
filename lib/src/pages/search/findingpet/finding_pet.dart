@@ -245,8 +245,7 @@ class FindingPet extends StatelessWidget {
             ),
             // const Text("วันเวลาที่หาย",style: TextStyle(color: Colors.black54),),
             _findPetController.lat == null || _findPetController.lng == null
-                ? Text(position,
-                    style: TextStyle(color: Colors.black54))
+                ? Text(position, style: TextStyle(color: Colors.black54))
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -631,10 +630,11 @@ class FindingPet extends StatelessWidget {
 
     String userId = _findPetController.userId!;
     String userName = _findPetController.userName!;
-    String userphone = _findPetController.userphone!; 
+    String userphone = _findPetController.userphone!;
 
     String userLastname = _findPetController.userLastname!;
     String ownername = "$userName  $userLastname";
+    String isMyPawsDone = "finding";
 
     await _prefs.write(key: SharedPreferenceKey.breed, value: petBreed);
     CollectionReference reference =
@@ -652,10 +652,14 @@ class FindingPet extends StatelessWidget {
       "breed": petBreed,
       "ownername": ownername,
       "ownerphone": userphone,
+      "ismypaws" : isMyPawsDone,
       "image": urlPic.toString()
     };
 
-    reference.add(findData).then((value) => Get.offNamed(Routes.petMatchPage));
+    reference.add(findData).then((value) async {
+      await _prefs.write(key: SharedPreferenceKey.docid, value: value.id);
+      Get.offNamed(Routes.petMatchPage);
+    });
   }
 
   Future<void> insertlostPetData() async {
@@ -673,10 +677,11 @@ class FindingPet extends StatelessWidget {
 
     String userId = _findPetController.userId!;
     String userName = _findPetController.userName!;
-    String userphone = _findPetController.userphone!; 
+    String userphone = _findPetController.userphone!;
 
     String userLastname = _findPetController.userLastname!;
     String ownername = "$userName  $userLastname";
+    String isMyPawsDone = "finding";
 
     CollectionReference reference =
         FirebaseFirestore.instance.collection("findpet");
@@ -692,7 +697,8 @@ class FindingPet extends StatelessWidget {
       "description": description,
       "breed": petBreed,
       "ownername": ownername,
-      "ownerphone" : userphone,
+      "ownerphone": userphone,
+      "ismypaws" : isMyPawsDone,
       "image": urlPic.toString()
     };
 
@@ -713,10 +719,12 @@ class FindingPet extends StatelessWidget {
 
     String userId = _findPetController.userId!;
     String userName = _findPetController.userName!;
-    String userphone = _findPetController.userphone!; 
+    String userphone = _findPetController.userphone!;
 
     String userLastname = _findPetController.userLastname!;
     String foundername = "$userName  $userLastname";
+
+    String isMyPawsDone = "finding";
 
     CollectionReference reference =
         FirebaseFirestore.instance.collection("foundpet");
@@ -727,10 +735,11 @@ class FindingPet extends StatelessWidget {
       "lat": lostlat,
       "lng": lostlng,
       "foundername": foundername,
-      "founderphone" : userphone,
+      "founderphone": userphone,
       "specific": specific,
       "type": pettype,
       "description": description,
+      "ismypaws" : isMyPawsDone,
       "breed": petBreed,
       "image": urlPic.toString()
     };

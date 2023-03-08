@@ -9,17 +9,38 @@
             "request": "launch",
             "type": "dart"
         },
+        // {
+        //     "name": "mypaws (profile mode)",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "flutterMode": "profile"
+        // },
+        // {
+        //     "name": "mypaws (release mode)",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "flutterMode": "release"
+        // }
         {
-            "name": "mypaws (profile mode)",
+            "name": "proj-emu-1",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "deviceId": "emulator-5554"
         },
         {
-            "name": "mypaws (release mode)",
+            "name": "proj-emu-2",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "profile",
+            "deviceId": "emulator-5556"
+        },
+        
+    ],
+    "compounds": [
+        {
+            "name": "All Devices",
+            "configurations": ["proj-emu-1","proj-emu-2"]
         }
     ]
 }

@@ -11,11 +11,12 @@ class LostPetChatController extends GetxController {
 
   final _prefs = const FlutterSecureStorage();
 
-  String? userId;
+  String? userId,name;
 
   @override
   void onInit() async {
     userId = await _prefs.read(key: SharedPreferenceKey.userId);
+    name = await _prefs.read(key: SharedPreferenceKey.userName);
     // _receiveArguments();
     super.onInit();
   }

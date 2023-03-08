@@ -80,14 +80,14 @@ class Routes {
         name: createAccountPage,
         page: () => CreateAccountPage(),
       ),
-      GetPage(
-        name: chatPage,
-        page: () => ChatPage(),
-      ),
-      GetPage(
-        name: chatUiPage,
-        page: () => ChatUiPage(matchItem: null,),
-      ),
+      // GetPage(
+      //   name: chatPage,
+      //   page: () => ChatUiPage(arguments: arguemnt),
+      // ),
+      // GetPage(
+      //   name: chatUiPage,
+      //   page: () => ChatUiPage(id: '', name: '',),
+      // ),
       GetPage(
         name: settingPage,
         page: () => SettingPage(),

@@ -81,30 +81,6 @@ class FindPetMap extends StatelessWidget {
                       ),
                       dense: true,
                       onTap: () {
-                        // if (_findPetController.lat == null ||
-                        //     _findPetController.lng == null) {
-                        //   showDialog(
-                        //       context: context,
-                        //       builder: (ctx) {
-                        //         return CustomConfirmDialog(
-                        //           title: "โปรดปักหมุดบนแผนที่",
-                        //           description: "",
-                        //           positiveText: "ยืนยัน",
-                        //           negativeText: "ยกเลิก",
-                        //           assetImage: "assets/logout.svg",
-                        //           positiveHandler: () async {},
-                        //           negativeHandler: () async {},
-                        //         );
-                        //       });
-                        // } else {
-                        // Navigator.pushNamed(context, '/findpet', arguments: {_findPetController.lat,_findPetController.lng});
-                        // Get.toNamed(
-                        //   Routes.findPetPage,
-                        //   arguments: [
-                        //     {FindingPet.pinLat : _findPetController.lat},
-                        //     {FindingPet.pinLng :_findPetController.lng},
-                        //   ],
-                        // );
                         _findPetController.savePinMap();
                         if (_findPetController.lat != null &&
                             _findPetController.lng != null) {

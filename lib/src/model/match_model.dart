@@ -13,6 +13,7 @@ class PetMatchModel {
   late final String description;
   late final String breed;
   late final String image;
+  late final String ismypaws;
   bool isBookMarkAdd = false;
 
   PetMatchModel(
@@ -28,6 +29,7 @@ class PetMatchModel {
       required this.description,
       required this.type,
       required this.breed,
+      required this.ismypaws,
       required this.isBookMarkAdd});
 
   PetMatchModel.fromMap(DocumentSnapshot data) {
@@ -43,6 +45,7 @@ class PetMatchModel {
     description = data["description"];
     type = data["type"];
     breed = data["breed"];
+    ismypaws = data["ismypaws"];
     // isBookMarkAdd = data["isBookMarkAdd"];
   }
 
@@ -52,7 +55,7 @@ class PetMatchModel {
     return PetMatchModel(
         id: document.id,
         founder: data["founder"],
-        foundername:  data["foundername"],
+        foundername: data["foundername"],
         founderphone: data["founderphone"],
         image: data["image"],
         specific: data["specific"],
@@ -62,6 +65,7 @@ class PetMatchModel {
         description: data["description"],
         type: data["type"],
         breed: data["breed"],
+        ismypaws: data["ismypaws"],
         isBookMarkAdd: data["isBookMarkAdd"]);
   }
 }

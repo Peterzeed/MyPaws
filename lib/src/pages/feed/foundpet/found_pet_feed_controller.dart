@@ -24,6 +24,7 @@ class FoundPetFeedController extends GetxController with LifecycleListenerEvent 
 
 
   Stream<List<PetMatchModel>> readPetFound() => collectionReference
+      .where('ismypaws', isEqualTo: "finding")
       .snapshots()
       .map((query) =>
           query.docs.map((item) => PetMatchModel.fromMap(item)).toList());

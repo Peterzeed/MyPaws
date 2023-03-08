@@ -332,12 +332,16 @@ class PetMatchPage extends StatelessWidget {
     String findername = "${_petMatchController.username} ${_petMatchController.userlastname}";
     String finderphone = _petMatchController.userphone!;
     String finderpic = _petMatchController.userprofile!;
+    String findpetid = _petMatchController.findpetid!;
+    String foundpetid = matchsave.id.toString();
 
     final foundmatchData = {
       // "userid": [founderid,finderid],
+      "foundpetid" : foundpetid,
       "founderid" : founderid,
       "foundername" : foundername,
       "founderphone" : founderphone,
+      "findpetid" : findpetid,
       "finderid" : finderid,
       "findername" : findername,
       "finderphone" : finderphone,

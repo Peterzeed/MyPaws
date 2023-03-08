@@ -13,6 +13,7 @@ class SharedPreferenceKey {
   static const petPic = "petpic";
   static const userphone = "phone";
   static const userPic = "userpic";
+  static const docid = "docid";
   static File? image;
 
   static Future<void> clearAll() async{

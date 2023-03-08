@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mypaws/constants/firestore_constants.dart';
 import 'package:mypaws/core/config/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mypaws/core/config/shared_pref.dart';
@@ -18,6 +19,8 @@ class AuthController extends GetxController {
   void bypassLogin() {
     Get.offNamed(Routes.mainPage);
   }
+
+  late final SharedPreferences prefs;
 
   String? loginName;
 
@@ -96,6 +99,10 @@ class AuthController extends GetxController {
             style: const TextStyle(color: Colors.white),
           ));
     }
+  }
+
+  String? getUserFirebaseId() {
+    return prefs.getString(FirestoreConstants.id);
   }
 
   Future<void> login(String email, password) async {

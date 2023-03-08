@@ -26,7 +26,7 @@ class PetMatchController extends GetxController with LifecycleListenerEvent {
 
   late CollectionReference collectionReference;
 
-  String? petBreed, owner , username , userlastname , userphone , userprofile;
+  String? petBreed, owner , username , userlastname , userphone , userprofile , findpetid;
 
   @override
   void onInit() async {
@@ -38,6 +38,7 @@ class PetMatchController extends GetxController with LifecycleListenerEvent {
     userlastname= await _prefs.read(key: SharedPreferenceKey.userLastname);
     userphone = await _prefs.read(key: SharedPreferenceKey.userphone);
     userprofile= await _prefs.read(key: SharedPreferenceKey.userPic);
+    findpetid = await _prefs.read(key: SharedPreferenceKey.docid);
     super.onInit();
     // Map<String, dynamic> args = Get.arguments;
     // _petBreed.value = args['petBreed'];
@@ -72,6 +73,7 @@ class PetMatchController extends GetxController with LifecycleListenerEvent {
   Stream<List<PetMatchModel>> readPetMatch() => collectionReference
       .where("breed", isEqualTo: petBreed)
       .where("founder", isNotEqualTo: owner)
+      .where("ismypaws" , isEqualTo: "finding")
       .snapshots()
       .map((query) =>
           query.docs.map((item) => PetMatchModel.fromMap(item)).toList());
